@@ -1,0 +1,11 @@
+.book{
+    transition: transform 5,2s;
+}
+.book:hover{
+box-shadow: 5px 5px 5px 5px rgb(86, 78, 78);
+transform: scale(1.05);
+}
+.title{
+    font-weight: 100;
+    font-size: 1.1rem;
+}

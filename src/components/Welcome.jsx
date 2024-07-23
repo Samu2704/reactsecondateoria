@@ -1,4 +1,5 @@
 import "./Welcome.css"
+import Alert from 'react-bootstrap/Alert';
 function Welcome() {
     return (
       <>

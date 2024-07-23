@@ -1,44 +1,34 @@
-import books from "../books/history.json"
+
 import "./Allmybooks.css"
-import { Container } from "react-bootstrap"
+import { Col, Container } from "react-bootstrap"
 import { Row } from "react-bootstrap"
 import SingleBook from "./SingleBook"
 import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
 import { useState } from "react"
+import CommentArea from "./CommentArea";
 
 
 
-function Allmybooks() {
+function Allmybooks({ resultSearch }) {
+    const [border, setBorder] = useState(null)
+    const handleClick = (asin) => {
+        if (border === asin) {
+            setBorder(null)
+        } else {
+            setBorder(asin)
+        }
+    };
 
-    
-
-    const  [search, setSearch]= useState(" ")
-    const [resultSearch, setResultSearch] = useState(books)
-    const handleSearch = (e) =>{
-        setSearch(e.target.value)
-        const resultTemp = books.filter((book) =>{
-           return book.title.toLowerCase().includes(e.target.value.toLowerCase())
-        })
-        setResultSearch(resultTemp)
-    } 
     return (
         <div >
-
-            <InputGroup className="mb-3">
-                <Form.Control
-                    placeholder="Recipient's username"
-                    aria-label="Recipient's username"
-                    aria-describedby="basic-addon2"
-                    onChange={handleSearch}
-                />
-              
-            </InputGroup>
-
-
             <Container>
                 <Row>
-                    {resultSearch.map(b => <SingleBook key={b.asin} tuttidettagli={b} />)}
+                    <Col md={8}>
+                        {resultSearch.map(b => <SingleBook key={b.asin} tuttidettagli={b} border={border} handleClick={handleClick} />)}
+                    </Col>
+                    <Col md={4}>
+                        {border && <CommentArea asin={border} />}
+                    </Col>
                 </Row>
             </Container>
         </div>
